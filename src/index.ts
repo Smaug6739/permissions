@@ -7,16 +7,16 @@ import type { IObject } from './types'
  * @param {Bits} [bits = 0] - Actual permissions of user.
  */
 class Permissions {
-	private bits: number = 0; // User bits permissions
+	private bits: bigint = 0n; // User bits permissions
 	private permissions: Array<IObject>;
-	constructor(permissions: Array<IObject>, bits: number) {
+	constructor(permissions: Array<IObject>, bits: bigint) {
 		if (!permissions) throw new TypeError("Permissions must be specified.")
-		if (bits) this.bits = bits;
+		if (bits) this.bits = BigInt(bits);
 		const permsArray: Array<IObject> = [];
 		permissions.forEach((p, i) => {
 			permsArray.push({
 				name: p,
-				value: 1 << (i + 1)
+				value: BigInt(1 << i)
 			})
 		})
 		this.permissions = permsArray;
@@ -35,11 +35,11 @@ class Permissions {
 	 */
 
 	get MAX() {
-		let bit = 0;
+		let bit = BigInt(0);
 		for (let flag of this.permissions) {
 			bit += flag.value
 		}
-		return bit
+		return bit.toString()
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Permissions {
 	 * @type {number} Return the bits of the permissions of user.
 	 */
 	get permissionCalc() {
-		return this.bits;
+		return this.bits.toString();
 	}
 
 	/**
@@ -76,21 +76,9 @@ class Permissions {
 	 */
 	public toArray(): Array<string> {
 
-		let bits = this.bits;
-		const flags = [...this.permissions].reverse()
-
-		const userPermissions: any[] = []
-		for (let permission of flags) {
-
-			const rest = bits % permission.value;
-			if (rest == 0 && bits != 0) {
-				userPermissions.push(permission.name);
-				break;
-			}
-			if (rest < bits) {
-				userPermissions.push(permission.name);
-				bits = rest
-			}
+		let userPermissions: string[] = []
+		for (const permission of this.permissions) {
+			if (this.bits & permission.value) userPermissions.push(permission.name)
 		}
 		return userPermissions
 	}
@@ -102,13 +90,17 @@ class Permissions {
 	public toString(): string {
 		return this.toArray().join(', ')
 	}
+	/**
+	 * Calcul the permissions of user
+	 * @returns {Array}
+	 */
 	public calculate() {
 		let bits = this.bits;
 		const flags = [...this.permissions].reverse()
 		const userPermissions: any[] = []
 		for (let permission of flags) {
 			const rest = bits % permission.value;
-			if (rest == 0 && bits != 0) {
+			if (rest == 0n && bits != 0n) {
 				userPermissions.push(permission);
 				break;
 			}
@@ -167,16 +159,16 @@ class Permissions {
 	 * @param {string|number|Array<string|number>} permissionsother The permission(s) to compare.
 	 * @returns {boolean} true if the permissions specified are the same of user and false otherwise.
 	 */
-	public equals(other: string | number | Array<string | number>): Array<string | number> | boolean {
+	public equals(other: string | number | Array<string | number>): Array<string | bigint> | boolean {
 		let total = 0;
 		if (Array.isArray(other)) return other.every(o => this.equals(o))
 		if (typeof other === 'string') {
 			if (this.toArray().includes(other)) return true;
 		}
 		if (typeof other === 'number') {
-			if (this.bits == other) return true;
+			if (this.bits == BigInt(other)) return true;
 		}
-		if (total === this.bits) return true;
+		if (BigInt(total) === this.bits) return true;
 		return false;
 	}
 
@@ -185,33 +177,33 @@ class Permissions {
 	 * @returns {number} the new permissions bits.
 	 */
 	public addAllPermissions() {
-		this.bits = this.MAX;
-		return this.bits
+		this.bits = BigInt(this.MAX);
+		return this.bits.toString()
 	}
 
 	/**
-	 * Add a permission to as user.
+	 * Add a permission to a user.
 	 * @param {string|Array<string>|number} permissionToAdd The new permission for user.
 	 * @returns {number} the new bits of permissions.
 	 */
-	public addPermission(permissionToAdd: (string | string[] | number)): (number | TypeError | boolean) {
+	public addPermission(permissionToAdd: (string | string[] | number)): (string | TypeError | boolean) {
 		const type = typeof permissionToAdd
 		if (Array.isArray(permissionToAdd)) return permissionToAdd.every(pta => this.addPermission(pta));
 		if (type === 'string') {
 			const permission = this.permissions.find(p => p.name === permissionToAdd)
 			const has: any = this.calculate().filter(p => p.name === permission?.name);
-			if (has || !has.length) return this.bits;
+			if (has || !has.length) return this.bits.toString();
 			if (!permission) return new TypeError('Permission does not exist.');
 			this.bits += permission.value;
-			return this.bits;
+			return this.bits.toString();
 		}
 		if (type === 'number') {
 			const permission = this.permissions.find(p => p.value === permissionToAdd);
 			const has: any = this.calculate().filter(p => p.value === permission?.value);
-			if (has || !has.length) return this.bits;
+			if (has || !has.length) return this.bits.toString();
 			if (!permission) return new TypeError('Permission does not exist.');
 			this.bits += permission.value;
-			return this.bits;
+			return this.bits.toString();
 		}
 		return new TypeError('The permission must be a string, an array or a number.');
 	}
@@ -221,8 +213,8 @@ class Permissions {
 	 * @returns {number} the new bits of permissions.
 	 */
 	public removeAllPermissions() {
-		this.bits = 0;
-		return this.bits
+		this.bits = 0n;
+		return this.bits.toString()
 	}
 
 	/**
@@ -230,24 +222,24 @@ class Permissions {
 	 * @param {string|Array<string>|number} permissionToAdd The permission to remove for user.
 	 * @returns {number} the new bits of permissions.
 	 */
-	public removePermission(permissionToRemove: (string | string[] | number)): (number | TypeError | boolean) {
+	public removePermission(permissionToRemove: (string | string[] | number)): (string | TypeError | boolean) {
 		const type = typeof permissionToRemove
 		if (Array.isArray(permissionToRemove)) return permissionToRemove.every(pta => this.addPermission(pta));
 		if (type === 'string') {
 			const permission = this.permissions.find(p => p.name === permissionToRemove);
 			const has: any = this.calculate().filter(p => p.name === permission?.name);
-			if (!has || !has.length) return this.bits;
+			if (!has || !has.length) return this.bits.toString();
 			if (!permission) return new TypeError('Permission does not exist.');
 			this.bits -= permission.value;
-			return this.bits;
+			return this.bits.toString();
 		}
 		if (type === 'number') {
 			const permission = this.permissions.find(p => p.value === permissionToRemove);
 			const has: any = this.calculate().filter(p => p.value === permission?.value);
-			if (!has || !has.length) return this.bits;
+			if (!has || !has.length) return this.bits.toString();
 			if (!permission) return new TypeError('Permission does not exist.');
 			this.bits -= permission.value;
-			return this.bits;
+			return this.bits.toString();
 		}
 		return new TypeError('The permission must be a string, an array or a number.')
 	}
