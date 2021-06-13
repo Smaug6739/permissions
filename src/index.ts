@@ -245,6 +245,4 @@ class Permissions {
 	}
 }
 
-export {
-	Permissions
-}
+export { Permissions };

@@ -1,0 +1,25 @@
+{
+  "name": "permissions",
+  "version": "1.0.0",
+  "description": "This module is a manager for permissions. With this module you can defined and host the permissions of user as a integer which makes it possible to limit the use of memory.",
+  "main": "./dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmaugDev/permissions.git"
+  },
+  "keywords": [
+    "permissions"
+  ],
+  "author": "Smaug6739",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SmaugDev/permissions/issues"
+  },
+  "homepage": "https://github.com/SmaugDev/permissions#readme"
+}

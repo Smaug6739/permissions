@@ -70,3 +70,27 @@ Return : String (the new bits of permissions).
 - `removePermission(permission)` : Remove a permission to a user.  
 Parameter : string | Array\<string> | number (The new permission for user)  
 Return : String (the new bits of permissions.)  
+
+## Example
+
+```js
+const { Permissions } = require('permissions')
+const permissionsList = ['ADMINISTRATOR', 'VIEW_ALL_MEMBERS', 'UPDATE_MEMBERS', 'DELETE_MEMBERS', 'BAN_MEMBERS']
+const userPermissions = new Permissions(permissionsList, 100)
+
+console.log(`Default : ${userPermissions.default}`);
+console.log(`Max : ${userPermissions.MAX}`);
+console.log('User bits : ' + userPermissions.permissionCalc);
+console.log(userPermissions.find(4));
+console.log(userPermissions.toArray());
+console.log(userPermissions.toString());
+console.log(userPermissions.hasAnyPermissions());
+console.log(userPermissions.missing([3]));
+console.log(userPermissions.equals([100, 100]));
+
+console.log(userPermissions.addPermission('ADMINISTRATOR'));
+console.log(userPermissions.removePermission('ADMINISTRATOR'));
+console.log(userPermissions.addAllPermissions());
+console.log(userPermissions.removeAllPermissions());
+
+```
