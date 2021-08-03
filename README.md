@@ -44,7 +44,7 @@ Return :
 
 The permission (Array\<Object> or empty array)
 
-## `toArray()`
+## toArray()
 
 Return an array of permissions
 
@@ -52,7 +52,7 @@ Return :
 
 Array\<permission>
 
-## `toString()`
+## toString()
 
 Return the permissions names of user (separate by \`, `)
 
@@ -60,7 +60,7 @@ Return :
 
 String\<permission>
 
-## `hasAnyPermissions()`
+## hasAnyPermissions()
 
 Return true if the user has at least one permission.
 
@@ -68,7 +68,7 @@ Return :
 
 Boolean
 
-## `hasPermissions(permission)`
+## hasPermissions(permission)
 
 Return true if user have permission(s).
 
@@ -92,7 +92,7 @@ Return :
 
 Object
 
-## `equals(other)`
+## equals(other)
 
 Return true if user permissions are equal to parameter.
 
@@ -104,7 +104,7 @@ Return :
 
 Boolean
 
-## `addAllPermissions()`
+## addAllPermissions()
 
 Add all permissions from user.
 
@@ -112,7 +112,7 @@ Return :
 
 String (the new bits permissions)
 
-## `addPermission(permission)`
+## addPermission(permission)
 
 Add a permission to a user.
 
@@ -124,7 +124,7 @@ Return :
 
 String (the new bits of permissions.)
 
-## `removeAllPermissions()`
+## removeAllPermissions()
 
 Remove all permissions of the user.
 
@@ -132,7 +132,7 @@ Return :
 
 String (the new bits of permissions).
 
-## `removePermission(permission)`
+## removePermission(permission)
 
 Remove a permission to a user.
 
