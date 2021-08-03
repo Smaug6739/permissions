@@ -125,8 +125,8 @@ class Permissions {
 	 * @param {Array<string>|String|Number} [permission] The permission required.
 	 * @returns {boolean} Return true if user has the specified permission.
 	 */
-	public hasPermissions(permission: any): boolean {
-		if (Array.isArray(permission)) return permission.every(p => this.hasPermissions(p))
+	public hasPermission(permission: any): boolean {
+		if (Array.isArray(permission)) return permission.every(p => this.hasPermission(p))
 		const permissionsArray = this.toArray();
 		if (permissionsArray.includes('ADMINISTRATOR')) return true;
 		if (typeof permission === 'string') {
@@ -150,7 +150,7 @@ class Permissions {
 	 */
 	public missing(permissionsList: (string | string[] | number)) {
 		if (Array.isArray(permissionsList)) permissionsList.every(pl => this.missing(pl));
-		if (!this.hasPermissions(permissionsList)) return permissionsList;
+		if (!this.hasPermission(permissionsList)) return permissionsList;
 		return null;
 	}
 

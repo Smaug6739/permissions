@@ -12,7 +12,7 @@ Create a new Permissions with all available permissions as a parameter (an array
 
 | PARAMETER        | TYPE                | OPTIONAL | DEFAULT | DESCRIPTION               |
 | ---------------- | ------------------- | -------- | ------- | ------------------------- |
-| permissions      | Array\<string>      | no       | none    | All available permissions |
+| permissions      | Array\<string>      | ✖️       | none    | All available permissions |
 | user permissions | int, bigint, string | ✓        | none    | The user permissions      |
 
 Note : The order of the permissions is verry important, after choosing it you can add new permissions but at the end of array.
@@ -21,16 +21,26 @@ Example : `new Permissions(['ADMINISTRATOR', 'VIEW_ALL_MEMBERS', 'UPDATE_MEMBERS
 
 ## Properties
 
-- `default` : Return the default permissions as a integer.  
-  Type : Number
+---
 
-- `MAX` : Return the max permission as a string.  
-  Type : String
+### default
 
-- `permissionCalc` : The permissions of user (has a string).  
-  Type : String
+Return the default permissions as a integer.  
+Type : Number
+
+### MAX
+
+Return the max permission as a string.  
+Type : String
+
+### permissionCalc
+
+The permissions of user (has a string).  
+Type : String
 
 ## Methods
+
+---
 
 ## find(name)
 
@@ -44,6 +54,10 @@ Return :
 
 The permission (Array\<Object> or empty array)
 
+```js
+console.log(userPermissions.find(4));
+```
+
 ## toArray()
 
 Return an array of permissions
@@ -51,6 +65,10 @@ Return an array of permissions
 Return :
 
 Array\<permission>
+
+```js
+console.log(userPermissions.toArray());
+```
 
 ## toString()
 
@@ -60,6 +78,10 @@ Return :
 
 String\<permission>
 
+```js
+console.log(userPermissions.toString());
+```
+
 ## hasAnyPermissions()
 
 Return true if the user has at least one permission.
@@ -68,7 +90,11 @@ Return :
 
 Boolean
 
-## hasPermissions(permission)
+```js
+console.log(userPermissions.hasAnyPermissions());
+```
+
+## hasPermission(permission)
 
 Return true if user have permission(s).
 
@@ -79,6 +105,10 @@ permission : The permission to check (Array, String, Number)
 Return :
 
 Object
+
+```js
+console.log(userPermissions.hasPermission([3]));
+```
 
 ## missing(permissions)
 
@@ -92,6 +122,10 @@ Return :
 
 Object
 
+```js
+console.log(userPermissions(["3"]));
+```
+
 ## equals(other)
 
 Return true if user permissions are equal to parameter.
@@ -104,6 +138,10 @@ Return :
 
 Boolean
 
+```js
+console.log(userPermissions.equals([100, 100]));
+```
+
 ## addAllPermissions()
 
 Add all permissions from user.
@@ -111,6 +149,10 @@ Add all permissions from user.
 Return :
 
 String (the new bits permissions)
+
+```js
+console.log(userPermissions.addAllPermissions());
+```
 
 ## addPermission(permission)
 
@@ -124,6 +166,10 @@ Return :
 
 String (the new bits of permissions.)
 
+```js
+console.log(userPermissions.addPermission("ADMINISTRATOR"));
+```
+
 ## removeAllPermissions()
 
 Remove all permissions of the user.
@@ -131,6 +177,10 @@ Remove all permissions of the user.
 Return :
 
 String (the new bits of permissions).
+
+```js
+console.log(userPermissions.removeAllPermissions());
+```
 
 ## removePermission(permission)
 
@@ -143,6 +193,10 @@ Params :
 Return :
 
 String (the new bits of permissions.)
+
+```js
+console.log(userPermissions.removePermission("ADMINISTRATOR"));
+```
 
 ## Example
 
