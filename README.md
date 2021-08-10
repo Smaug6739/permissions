@@ -6,7 +6,41 @@ This module is a manager for permissions. With this module you can defined and h
 
 It work with a bitwise operations using the bigint library.
 
+## Getting started
+
+Prerequisites
+
+Node.js 12.0.0 or newer is required.
+
+### Instalation
+
+With npm :
+
+```sh-session
+npm install permissions
+```
+
+With yarn :
+
+```sh-session
+yarn add permissions
+```
+
 ## Usage
+
+Import the module from node_modules :
+
+With CommonJS syntax :
+
+```js
+const { Permissions } = require("permissions");
+```
+
+With module syntax :
+
+```js
+import { Permissions } = from 'permissions';
+```
 
 Create a new Permissions with all available permissions as a parameter (an array).
 
@@ -23,17 +57,17 @@ Example : `new Permissions(['ADMINISTRATOR', 'VIEW_ALL_MEMBERS', 'UPDATE_MEMBERS
 
 ---
 
-### default
+### Permissions.default
 
 Return the default permissions as a integer.  
 Type : Number
 
-### MAX
+### Permissions.MAX
 
 Return the max permission as a string.  
 Type : String
 
-### permissionCalc
+### Permissions.permissionCalc
 
 The permissions of user (has a string).  
 Type : String
@@ -42,7 +76,7 @@ Type : String
 
 ---
 
-## find(name)
+## Permissions#find(name)
 
 Find the permission value bay name
 
@@ -58,7 +92,7 @@ The permission (Array\<Object> or empty array)
 console.log(userPermissions.find(4));
 ```
 
-## toArray()
+## Permissions#toArray()
 
 Return an array of permissions
 
@@ -70,7 +104,7 @@ Array\<permission>
 console.log(userPermissions.toArray());
 ```
 
-## toString()
+## Permissions#toString()
 
 Return the permissions names of user (separate by \`, `)
 
@@ -82,7 +116,7 @@ String\<permission>
 console.log(userPermissions.toString());
 ```
 
-## hasAnyPermissions()
+## Permissions#hasAnyPermissions()
 
 Return true if the user has at least one permission.
 
@@ -94,7 +128,7 @@ Boolean
 console.log(userPermissions.hasAnyPermissions());
 ```
 
-## hasPermission(permission)
+## Permissions#hasPermission(permission)
 
 Return true if user have permission(s).
 
@@ -110,7 +144,7 @@ Object
 console.log(userPermissions.hasPermission([3]));
 ```
 
-## missing(permissions)
+## Permissions#missing(permissions)
 
 Return the missings permissions of user in the parameter.
 
@@ -126,7 +160,7 @@ Object
 console.log(userPermissions(["3"]));
 ```
 
-## equals(other)
+## Permissions#equals(other)
 
 Return true if user permissions are equal to parameter.
 
@@ -142,7 +176,7 @@ Boolean
 console.log(userPermissions.equals([100, 100]));
 ```
 
-## addAllPermissions()
+## Permissions#addAllPermissions()
 
 Add all permissions from user.
 
@@ -154,7 +188,7 @@ String (the new bits permissions)
 console.log(userPermissions.addAllPermissions());
 ```
 
-## addPermission(permission)
+## Permissions#addPermission(permission)
 
 Add a permission to a user.
 
@@ -170,7 +204,7 @@ String (the new bits of permissions.)
 console.log(userPermissions.addPermission("ADMINISTRATOR"));
 ```
 
-## removeAllPermissions()
+## Permissions#removeAllPermissions()
 
 Remove all permissions of the user.
 
@@ -182,7 +216,7 @@ String (the new bits of permissions).
 console.log(userPermissions.removeAllPermissions());
 ```
 
-## removePermission(permission)
+## Permissions#removePermission(permission)
 
 Remove a permission to a user.
 
