@@ -1,5 +1,5 @@
 {
-  "name": "permissions",
+  "name": "permissions.js",
   "version": "1.0.0",
   "description": "This module is a manager for permissions. With this module you can defined and host the permissions of user as a integer which makes it possible to limit the use of memory.",
   "main": "./dist/index.js",

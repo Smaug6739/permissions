@@ -17,13 +17,13 @@ Node.js 12.0.0 or newer is required.
 With npm :
 
 ```sh-session
-npm install permissions
+npm install permissions.js
 ```
 
 With yarn :
 
 ```sh-session
-yarn add permissions
+yarn add permissions.js
 ```
 
 ## Usage
@@ -33,13 +33,13 @@ Import the module from node_modules :
 With CommonJS syntax :
 
 ```js
-const { Permissions } = require("permissions");
+const { Permissions } = require("permissions.js");
 ```
 
 With module syntax :
 
 ```js
-import { Permissions } = from 'permissions';
+import { Permissions } = from 'permissions.js';
 ```
 
 Create a new Permissions with all available permissions as a parameter (an array).
